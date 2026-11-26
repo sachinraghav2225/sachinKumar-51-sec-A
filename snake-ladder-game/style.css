@@ -1,0 +1,21 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Trebuchet MS", Arial, sans-serif; background: #f2efe6; color: #222; }
+.game { max-width: 960px; margin: 0 auto; padding: 16px; display: grid; gap: 16px; grid-template-columns: minmax(0, 1fr) 240px; align-items: start; }
+.game h1 { grid-column: 1 / -1; margin: 0; }
+.board-wrap { position: relative; width: 100%; aspect-ratio: 1; border: 4px solid #3b3b3b; border-radius: 6px; overflow: hidden; }
+.board { display: grid; grid-template-columns: repeat(10, 1fr); grid-template-rows: repeat(10, 1fr); width: 100%; height: 100%; }
+.cell { font-size: clamp(8px, 1.6vw, 13px); padding: 2px 3px; color: #444; }
+.cell.a { background: #fbe9a8; }
+.cell.b { background: #bfe3c0; }
+.overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.token { position: absolute; width: 4%; height: 4%; min-width: 14px; min-height: 14px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.5); transform: translate(-50%, -50%); transition: left .25s, top .25s; }
+.panel { background: #fff; border-radius: 10px; padding: 16px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,.12); }
+.turn { font-weight: bold; font-size: 1.1rem; margin-bottom: 8px; }
+.dice { font-size: 80px; line-height: 1; margin: 8px 0; }
+.dice.rolling { animation: shake .4s; }
+@keyframes shake { 25% { transform: rotate(-15deg); } 75% { transform: rotate(15deg); } }
+button { width: 100%; padding: 10px; font-size: 1rem; border: 0; border-radius: 8px; background: #1d7fd6; color: #fff; cursor: pointer; }
+button:disabled { opacity: .5; cursor: not-allowed; }
+button.secondary { background: #666; margin-top: 8px; }
+.msg { min-height: 48px; font-size: .95rem; }
+@media (max-width: 700px) { .game { grid-template-columns: 1fr; } }

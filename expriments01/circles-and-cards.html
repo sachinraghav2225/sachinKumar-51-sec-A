@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Concentric Circles and Cards</title>
+<style>
+:root {
+  --bg: #f5f7fa; --text: #1c2430; --muted: #5b6676; --card: #ffffff; --line: #dde3ea;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --bg: #12171f; --text: #eef1f5; --muted: #a0abba; --card: #1c2430; --line: #2c3746; }
+}
+:root[data-theme="dark"] { --bg: #12171f; --text: #eef1f5; --muted: #a0abba; --card: #1c2430; --line: #2c3746; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif; }
+h1 { font-size: 1.4rem; margin: 0 0 16px; }
+section { padding: 28px 24px; }
+
+/* Concentric circles: radius 10px, 20px, 30px => diameter 20, 40, 60 */
+.circles { position: relative; width: 60px; height: 60px; }
+.circles div { position: absolute; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+.c30 { width: 60px; height: 60px; background: #e63946; }
+.c20 { width: 40px; height: 40px; background: #f4c430; }
+.c10 { width: 20px; height: 20px; background: #1d7fd6; }
+
+/* Cards: single horizontal row, scrolls sideways inside its own container */
+.row { display: flex; flex-wrap: nowrap; gap: 16px; overflow-x: auto; padding: 4px 4px 16px; }
+.card { flex: 0 0 240px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.card img { display: block; width: 100%; height: 150px; object-fit: cover; }
+.card .body { padding: 14px 16px 18px; }
+.card h2 { font-size: 1.05rem; margin: 0 0 6px; }
+.card p { margin: 0; font-size: .9rem; line-height: 1.5; color: var(--muted); }
+</style>
+</head>
+<body>
+<section>
+  <h1>Three concentric circles</h1>
+  <div class="circles" role="img" aria-label="Three concentric circles with radii 10, 20 and 30 pixels">
+    <div class="c30"></div><div class="c20"></div><div class="c10"></div>
+  </div>
+</section>
+
+<section>
+  <h1>Ten cards</h1>
+  <div class="row" id="row"></div>
+</section>
+
+<script>
+var items = [
+  ["Mountain Dawn", "Early light spills over the ridge and warms the valley below.", "#ff9a5a", "#5b3a8c"],
+  ["Calm Lake", "Still water mirrors the sky on a quiet morning.", "#4fc3f7", "#0d47a1"],
+  ["Pine Forest", "Tall evergreens line a path that smells of rain and resin.", "#66bb6a", "#1b5e20"],
+  ["Desert Dunes", "Wind-sculpted sand rolls toward a hazy orange horizon.", "#ffd54f", "#bf360c"],
+  ["City Lights", "Windows glow as evening settles over the skyline.", "#7e57c2", "#1a237e"],
+  ["Ocean Waves", "Foam-capped swells roll in and break along the shore.", "#26c6da", "#01579b"],
+  ["Autumn Leaves", "A carpet of amber and crimson covers the park.", "#ef5350", "#e65100"],
+  ["Snow Peaks", "Fresh powder blankets the summit under a pale sky.", "#e3f2fd", "#546e7a"],
+  ["Tulip Fields", "Rows of color stretch to the edge of the farm.", "#f06292", "#ad1457"],
+  ["Night Sky", "Stars scatter across a deep, cloudless dark.", "#283593", "#000020"]
+];
+var row = document.getElementById("row");
+items.forEach(function (it) {
+  var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="300" viewBox="0 0 480 300">' +
+    '<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + it[2] + '"/><stop offset="1" stop-color="' + it[3] + '"/></linearGradient></defs>' +
+    '<rect width="480" height="300" fill="url(#g)"/>' +
+    '<circle cx="350" cy="90" r="38" fill="#fff" opacity=".85"/>' +
+    '<path d="M0 300 L120 150 L210 250 L320 130 L480 300 Z" fill="#000" opacity=".28"/></svg>';
+  var card = document.createElement("article");
+  card.className = "card";
+  var img = document.createElement("img");
+  img.alt = it[0];
+  img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+  var body = document.createElement("div");
+  body.className = "body";
+  var h = document.createElement("h2"); h.textContent = it[0];
+  var p = document.createElement("p"); p.textContent = it[1];
+  body.appendChild(h); body.appendChild(p);
+  card.appendChild(img); card.appendChild(body);
+  row.appendChild(card);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Random Jokes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="wrap">
+    <h1>Random Joke Generator</h1>
+    <section class="card" aria-live="polite">
+      <p id="setup" class="setup">Press the button to get a joke.</p>
+      <p id="punchline" class="punchline"></p>
+    </section>
+    <div class="actions">
+      <button id="newBtn">New joke</button>
+      <button id="revealBtn" class="secondary" disabled>Show punchline</button>
+      <button id="copyBtn" class="secondary" disabled>Copy</button>
+    </div>
+    <p id="status" class="status"></p>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
